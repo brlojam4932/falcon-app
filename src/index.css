@@ -1,5 +1,7 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +9,194 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  /*  min-height: 100vh; */
+  display: flex;
+  background-color: #000000;
+  color: rgb(155, 168, 177);
 }
+
+#root {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 500px;
+  
+}
+
+.App {
+  width: 100%;
+  /*  max-width: 1000px; */
+  height: 100vh; /* this will keep it from shrinking or expanding  */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Header .Footer {
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center
+}
+
+.logo-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  margin: 3px;
+  padding: 7px;
+}
+
+/* coins search input */
+.form-control {
+  width: 25%;
+  background-color: #0d0e0e;
+}
+
+.minusPlus {
+  color: rgb(0, 166, 255);
+}
+
+/* ////////////// MODAL /////////////// */
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.7);
+}
+
+.Modal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.Modal .modal-box {
+  background-color: rgb(16 16 16);
+  width: 530px;
+  margin: 10px;
+  padding: 20px;
+  text-align: left;
+  line-height: 75px;
+  font-size: medium;
+}
+
+.Modal .modal-box .inner-box {
+  height: 265px;
+}
+
+/* ////////////// POP-UP /////////////// */
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+.popup-inner {
+  position: relative;
+  width: 100%;
+  max-width: 950px;
+  font-family: "Fira Sans", sans-serif;
+}
+
+.popup-inner .btn-close {
+  width: 112em;
+}
+
+.open-btn {
+  background-color: rgb(14, 14, 14);
+  color: rgb(92, 91, 91);
+  font-family: "Fira Sans", sans-serif;
+}
+
+/* chart percentage change */
+
+.red {
+  color: #f14e60;
+}
+
+.green {
+  color: #11bf48;
+}
+
+/* PROGRESS BAR */
+.progress {
+	background-color: #4b4b4b;
+	border-radius: 3px;
+	position: relative;
+	margin: 15px 0;
+	height: 30px;
+	width: 425px;
+}
+
+.progress-done {
+	background: linear-gradient(to left, #5e7ea7, #72ffbe);;
+	box-shadow: 0 3px 3px -5px #7074f2, 0 2px 5px #7074f2;
+	border-radius: 3px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 3s ease 0.1s;
+}
+
+/* Show more crypto */
+
+.show-amount {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 5px;
+}
+
+
+.select-crypto {
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 5px;
+ 
+}
+
+
+.select-crypto-btn {
+  position: relative;
+  top: 17px;
+}
+
+
+
+
+
+
+
+
+
