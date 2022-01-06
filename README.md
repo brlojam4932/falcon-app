@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+![falconTrades_balance](https://user-images.githubusercontent.com/36285465/148326127-497fe34d-c525-46da-a8b7-ca0b8cc24074.PNG)
+
 ## Available Scripts
 
 In the project directory, you can run:
