@@ -30,7 +30,7 @@ function Exchanges() {
     url: 'https://coinranking1.p.rapidapi.com/exchanges',
     headers: {
       'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
-      'x-rapidapi-key': '9271cb1bffmsh3bfde2fc26f9dd1p125f3cjsn6324533a44df'
+      'x-rapidapi-key': '285158cd27msh0fe6544cba309c6p1fdc93jsnd10abf312a45'
     }
   };
 
