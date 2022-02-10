@@ -27,7 +27,7 @@ function Exchanges() {
 
   const options = {
     method: 'GET',
-    url: 'https://coinranking1.p.rapidapi.com/coins',
+    url: 'https://coinranking1.p.rapidapi.com/coins/exchanges',
     headers: {
       
       'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
