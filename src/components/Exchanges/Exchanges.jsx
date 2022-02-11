@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import styled from 'styled-components';
 import millify from 'millify';
-import HTMLReactParser from 'html-react-parser';
+//import HTMLReactParser from 'html-react-parser';
 import { FiPlus, FiMinus } from 'react-icons/fi';
+import coinGecko from '../Utility/coinGecko';
 
 const Img = styled.img`
 max-width: 33px
@@ -25,39 +26,49 @@ function Exchanges() {
   const [error, setError] = useState(null);
   const [clicked, setClicked] = useState(false);
 
-  const options = {
-    method: 'GET',
-    url: 'https://coinranking1.p.rapidapi.com/coins/exchanges',
-    headers: {
-      
-      'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
-      'x-rapidapi-key': '285158cd27msh0fe6544cba309c6p1fdc93jsnd10abf312a45'
+  const componentDidMount2 = async () => {
+    try {
+      const response = await coinGecko.get('exchanges')
+      const exchangeData = response.data.slice(0, 20).map((exchange) => {
+        return {
+          key: exchange.id,
+          image: exchange.image,
+          name: exchange.name,
+          url: exchange.url,
+          description: exchange.description,
+          rank: exchange.trust_score_rank,
+          volume: millify(exchange.trade_volume_24h_btc),
+          year: exchange.year_established,
+          country: exchange.country
+        }
+      });
+      setExchangeData(exchangeData);
+
+    } catch (error) {
+      //console.log(error);
+      setError(error);
     }
-  };
+  }
 
+  // for clean-up code from https://youtu.be/0ZJgIjIuY7U
   useEffect(() => {
-    axios.request(options).then((response) => {
-      setExchangeData(response.data);
-      //console.log(response.data);
-    })
-    .catch((err) => {
-        setError(err);
-      })
-
+    if (exchangeData.length === 0) {
+      componentDidMount2();
+    }
   });
 
 
-  const exchangeList = exchangeData?.data?.exchanges;
-
-
   if (error) return <h4 style={{ color: "darkorange" }}>Error...</h4>
+
 
   const toggle = (index) => {
     if (clicked === index) {
       return setClicked(null);
     }
     setClicked(index);
+    //console.log("clicked", index);
   }
+
 
 
   return (
@@ -70,38 +81,40 @@ function Exchanges() {
       <br />
       <div className="row row-cols-5">
         <div className="col"></div>
-        <div className='col text-primary'>22h Vol</div>
-        <div className='col text-primary'>Markets</div>
-        <div className='col text-primary'>Change</div>
+        <div className='col text-primary'>24h Vol in BTC</div>
+        <div className='col text-primary'>Year Established</div>
+        <div className='col text-primary'>Country</div>
       </div>
-      {exchangeList && exchangeList.map((exchange, index) => (
+      {exchangeData && exchangeData.map((exchange, index) => (
         <div className='col table table-hover' key={index}>
           <span>
             <div className="row row-cols-5">
               <div className='col'>
                 <h6><strong>{exchange.rank}</strong></h6>
-                <Img className='exchange-image' src={exchange.iconUrl} />
+                <Img className='exchange-image' src={exchange.image} />
                 <p><strong>{exchange.name}</strong></p>
               </div>
               <div className='col'>
-                <p>$&nbsp;{millify(exchange.volume)}</p>
+                <p>$&nbsp;{exchange.volume}</p>
               </div>
               <div className='col'>
-                <p>$&nbsp;{millify(exchange.numberOfMarkets)}</p>
+                <p>{exchange.year}</p>
               </div>
               <div className='col'>
-                <p>$&nbsp;{millify(exchange.marketShare)}</p>
+                <p>{exchange.country}</p>
               </div>
               <div className="Col minusPlus" onClick={() => toggle(index)} key={index}>
                 <span>{clicked === index ? (<FiMinus />) : (<FiPlus />)}</span>
               </div>
             </div>
-            {clicked === index ? (
-              HTMLReactParser(exchange.description || '')
-            ) : (null)}
+            <div className='text-muted'>
+              {clicked === index ? (
+                exchange.description || <a href={exchange.url}>Link to {exchange.name}</a>
+              ) : (null)}
+            </div>
           </span>
         </div>
-      ))};
+      ))}
     </div>
   )
 }
